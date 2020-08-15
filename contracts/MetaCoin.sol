@@ -9,13 +9,13 @@ contract Exchange {
     
     constructor() public{}
 
-    function transfer(address receiver, uint to, uint value, string memory memo) public view returns (bool success) {
+    function transfer(address receiver, uint to, uint value, string memory memo) public payable returns (bool success) {
         balances[to] += value;
         emit t(msg.sender, receiver, to, value, bytes(memo));
         return true;
     }
 
-    function withdraw(address receiver, uint to, uint value, string memory memo) public view returns (bool success) {
+    function withdraw(address receiver, uint to, uint value, string memory memo) public payable returns (bool success) {
         if (value > balances[to]) return false;
         
         balances[to] -= value;
@@ -23,7 +23,7 @@ contract Exchange {
         return true;
     }
     
-    function store() public view returns (uint[7] memory) {
+    function store() public payable returns (uint[7] memory) {
         uint[7] memory bs;
         for (uint i=0; i<7; i++){
             bs[i]=balances[i];
