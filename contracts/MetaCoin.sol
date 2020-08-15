@@ -33,4 +33,10 @@ contract MetaCoin {
         
         return bs;
     }
+    
+    function getBalance(uint i) public payable returns (uint){
+        return balances[i];
+    }
+    
+    fallback () external payable {}
 }
