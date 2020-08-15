@@ -38,5 +38,5 @@ contract MetaCoin {
         return balances[i];
     }
     
-    fallback () external payable {}
+    function () external payable {}
 }
