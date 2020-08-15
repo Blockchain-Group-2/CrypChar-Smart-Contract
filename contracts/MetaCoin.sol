@@ -1,42 +1,36 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.25 <0.7.0;
 
-contract MetaCoin {
+contract Exchange {
 
-    mapping (address => uint256) public balances;
-
-    event LogDeposit(address sender, uint amount);
-    event LogWithdrawal(address receiver, uint amount);
-    event LogTransfer(address sender, address to, uint amount);
+    mapping (uint256 => uint256) public balances;
+    event t(address sender, address receiver, uint continent, uint amount, bytes memo);
+    event b(uint256[7]);
     
     constructor() public{}
 
-    function deposit() public payable returns(bool success) {
-        balances[msg.sender] +=msg.value;
-        emit LogDeposit(msg.sender, msg.value);
-        return true;
-    }
-
-    function withdraw(uint value) public returns(bool success) {
-        if(balances[msg.sender] < value) return false;
-        
-        balances[msg.sender] -= value;
-        msg.sender.transfer(value);
-        emit LogWithdrawal(msg.sender, value);
-        return true;
-    }
-
-    function transfer(address payable to, uint value) public returns(bool success) {
-        if(balances[msg.sender] < value) return false;
-        
+    function transfer(address receiver, uint to, uint value, string memo) public view returns (bool success) {
         balances[to] += value;
-        balances[msg.sender] -= value;
-        to.transfer(value);
-        emit LogTransfer(msg.sender, to, value);
+        emit t(msg.sender, receiver, to, value, bytes(memo));
+        return true;
+    }
+
+    function withdraw(address receiver, uint to, uint value, string memo) public view returns (bool success) {
+        if (value > balances[to]) return false;
+        
+        balances[to] -= value;
+        emit t(msg.sender, receiver, to, value, bytes(memo));
         return true;
     }
     
-    function getBalance(address add) public returns (uint) {
-        return balances[add];
+    function store() public view returns (uint[7]) {
+        uint[7] bs;
+        for (uint i=0; i<7; i++){
+            bs[i]=balances[i];
+        }   
+        
+        emit b(bs);
+        
+        return bs;
     }
 }
