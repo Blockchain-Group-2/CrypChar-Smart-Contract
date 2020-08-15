@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.25 <0.7.0;
 
-contract Exchange {
+contract MetaCoin {
 
     mapping (uint256 => uint256) public balances;
     event t(address sender, address receiver, uint continent, uint amount, bytes memo);
