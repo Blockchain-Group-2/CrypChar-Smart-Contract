@@ -1,35 +1,42 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.25 <0.7.0;
 
-import "./ConvertLib.sol";
+contract Exchange {
 
-// This is just a simple example of a coin-like contract.
-// It is not standards compatible and cannot be expected to talk to other
-// coin/token contracts. If you want to create a standards-compliant
-// token, see: https://github.com/ConsenSys/Tokens. Cheers!
+    mapping (address => uint256) public balances;
 
-contract MetaCoin {
-	mapping (address => uint) balances;
+    event LogDeposit(address sender, uint amount);
+    event LogWithdrawal(address receiver, uint amount);
+    event LogTransfer(address sender, address to, uint amount);
+    
+    constructor() public{}
 
-	event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    function deposit() payable returns(bool success) {
+        balances[msg.sender] +=msg.value;
+        LogDeposit(msg.sender, msg.value);
+        return true;
+    }
 
-	constructor() public {
-	}
-
-	function sendCoin(address payable receiver, uint amount) public returns(bool sufficient) {
-		if (balances[msg.sender] < amount) return false;
-		
-        	receiver.transfer(amount);
+    function withdraw(uint value) returns(bool success) {
+        if(balances[msg.sender] < value) return false;
         
-		emit Transfer(msg.sender, receiver, amount);
-		return true;
-	}
+        balances[msg.sender] -= value;
+        msg.sender.transfer(value);
+        LogWithdrawal(msg.sender, value);
+        return true;
+    }
 
-	function getBalanceInEth(address addr) public view returns(uint){
-		return ConvertLib.convert(getBalance(addr),2);
-	}
-
-	function getBalance(address addr) public view returns(uint) {
-		return balances[addr];
-	}
+    function transfer(address to, uint value) returns(bool success) {
+        if(balances[msg.sender] < value) return false;
+        
+        balances[to] += value;
+        balances[msg.sender] -= value;
+        to.transfer(value);
+        LogTransfer(msg.sender, to, value);
+        return true;
+    }
+    
+    function getBalance(address add) returns (uint) {
+        return balances[add];
+    }
 }
