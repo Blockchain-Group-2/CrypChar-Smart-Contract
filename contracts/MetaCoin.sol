@@ -11,13 +11,13 @@ contract Exchange {
     
     constructor() public{}
 
-    function deposit() payable returns(bool success) {
+    function deposit() public payable returns(bool success) {
         balances[msg.sender] +=msg.value;
         emit LogDeposit(msg.sender, msg.value);
         return true;
     }
 
-    function withdraw(uint value) returns(bool success) {
+    function withdraw(uint value) public returns(bool success) {
         if(balances[msg.sender] < value) return false;
         
         balances[msg.sender] -= value;
@@ -26,7 +26,7 @@ contract Exchange {
         return true;
     }
 
-    function transfer(address payable to, uint value) returns(bool success) {
+    function transfer(address payable to, uint value) public returns(bool success) {
         if(balances[msg.sender] < value) return false;
         
         balances[to] += value;
@@ -36,7 +36,7 @@ contract Exchange {
         return true;
     }
     
-    function getBalance(address add) returns (uint) {
+    function getBalance(address add) public returns (uint) {
         return balances[add];
     }
 }
