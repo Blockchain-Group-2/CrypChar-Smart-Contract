@@ -13,7 +13,7 @@ contract Exchange {
 
     function deposit() payable returns(bool success) {
         balances[msg.sender] +=msg.value;
-        LogDeposit(msg.sender, msg.value);
+        emit LogDeposit(msg.sender, msg.value);
         return true;
     }
 
@@ -22,17 +22,17 @@ contract Exchange {
         
         balances[msg.sender] -= value;
         msg.sender.transfer(value);
-        LogWithdrawal(msg.sender, value);
+        emit LogWithdrawal(msg.sender, value);
         return true;
     }
 
-    function transfer(address to, uint value) returns(bool success) {
+    function transfer(address payable to, uint value) returns(bool success) {
         if(balances[msg.sender] < value) return false;
         
         balances[to] += value;
         balances[msg.sender] -= value;
         to.transfer(value);
-        LogTransfer(msg.sender, to, value);
+        emit LogTransfer(msg.sender, to, value);
         return true;
     }
     
