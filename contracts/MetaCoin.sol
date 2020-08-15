@@ -23,7 +23,7 @@ contract Exchange {
         return true;
     }
     
-    function store() public view returns (uint[7]) {
+    function store() public view returns (uint[7] memory) {
         uint[7] bs;
         for (uint i=0; i<7; i++){
             bs[i]=balances[i];
