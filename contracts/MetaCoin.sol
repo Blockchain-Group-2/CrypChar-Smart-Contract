@@ -30,7 +30,7 @@ contract MetaCoin {
 
     uint256[] number;
 
-    function store(uint256 num) public payable returns (bool){
+    function store(uint256 num) public payable returns (bool success){
         number.push(num);
         return true;
     }
