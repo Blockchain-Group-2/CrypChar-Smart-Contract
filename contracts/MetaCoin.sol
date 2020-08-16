@@ -28,14 +28,14 @@ contract MetaCoin {
     
     function () external payable {}
 
-    uint256[] number;
+    uint256 [] public number;
 
     function store(uint256 num) public payable returns (bool success){
         number.push(num);
         return true;
     }
 
-    function retreive() public payable returns (uint256[] memory){
-        return number;
+    function retreive(uint i) public payable returns (uint256){
+        return number[i];
     }
 }
