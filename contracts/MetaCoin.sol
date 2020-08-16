@@ -2,22 +2,16 @@ pragma solidity >=0.4.22 <0.7.0;
 
 contract MetaCoin {
 
-    uint256[99] public number;
+    mapping(uint256 => uint256) public hash;
+    uint256 i=0;
 
     function store(uint256 num) public returns (bool success){
-        for (uint i=0; i<number.length; i++){
-            if (number[i]==0){
-                number[i]=num;
-                return true;
-            }
-        }
-    }
-    
-    function getAll() public view returns (uint256[99] memory){
-        return number;
+        hash[i]+=num;
+        i++;
+        return true;
     }
     
     function get(uint i) public view returns (uint256){
-        return number[i];
+        return hash[i];
     }
 }
