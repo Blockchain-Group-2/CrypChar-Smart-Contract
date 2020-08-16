@@ -4,7 +4,7 @@ pragma solidity >=0.4.22 <0.7.0;
  * @title Storage
  * @dev Store & retreive value in a variable
  */
-contract Storage {
+contract MetaCoin {
 
     uint256[9999] public number;
 
