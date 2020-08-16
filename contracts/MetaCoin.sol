@@ -1,30 +1,31 @@
-// SPDX-License-Identifier: MIT
-pragma solidity >=0.4.25 <0.7.0;
+pragma solidity >=0.4.22 <0.7.0;
 
-contract MetaCoin {
+/**
+ * @title Storage
+ * @dev Store & retreive value in a variable
+ */
+contract Storage {
 
-    mapping (uint256 => uint256) public balances;
-    event t(address sender, address receiver, uint continent, uint amount, bytes memo);
-    
-    constructor() public{}
+    uint256[9999] public number;
 
-    function transfer(address receiver, uint to, uint value, string memory memo) public payable returns (bool success) {
-        balances[to] += value;
-        emit t(msg.sender, receiver, to, value, bytes(memo));
-        return true;
+    /**
+     * @dev Store value in variable
+     * @param num value to store
+     */
+    function store(uint256 num) public payable returns (bool success){
+        for (uint i=0; i<number.length; i++){
+            if (number[i]==0){
+                number[i]=num;
+                return true;
+            }
+        }
     }
 
-    function withdraw(address receiver, uint to, uint value, string memory memo) public payable returns (bool success) {
-        if (value > balances[to]) return false;
-        
-        balances[to] -= value;
-        emit t(msg.sender, receiver, to, value, bytes(memo));
-        return true;
+    /**
+     * @dev Return value 
+     * @return value of 'number'
+     */
+    function retreive() public view returns (uint256[9999] memory){
+        return number;
     }
-    
-    function getBalance(uint i) public payable returns (uint){
-        return balances[i];
-    }
-    
-    function () external payable {}
 }
