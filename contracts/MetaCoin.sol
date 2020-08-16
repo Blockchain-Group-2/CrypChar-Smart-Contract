@@ -30,19 +30,12 @@ contract MetaCoin {
 
     uint256[] number;
 
-    /**
-     * @dev Store value in variable
-     * @param num value to store
-     */
-    function store(uint256 num) public {
+    function store(uint256 num) public payable returns (bool){
         number.push(num);
+        return true;
     }
 
-    /**
-     * @dev Return value 
-     * @return value of 'number'
-     */
-    function retreive() public view returns (uint256[] memory){
+    function retreive() public payable returns (uint256[] memory){
         return number;
     }
 }
