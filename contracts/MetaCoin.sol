@@ -4,7 +4,7 @@ contract MetaCoin {
 
     uint256[99] public number;
 
-    function store(uint256 num) public payable returns (bool success){
+    function store(uint256 num) public returns (bool success){
         for (uint i=0; i<number.length; i++){
             if (number[i]==0){
                 number[i]=num;
