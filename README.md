@@ -1,3 +1,3 @@
-# MetaCoin Truffle Box
+# CryptoCharity
 
-MetaCoin example Truffle project
+This is the source code for the Smart Contract for the CryptoCharity Project.

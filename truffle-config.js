@@ -1,21 +1,27 @@
+//using a truffle sandbox so this code is not needed for deployment. If deploying to infura or mainnet, this code would be needed.
+
+
+/*
+require('dotenv').config()  //hides the Mnemonic in a seperate file for security purposes.
+console.log(require('dotenv').config())
+var HDWalletProvider = require("truffle-hdwallet-provider");
+var mnemonic = process.env.MNEMONIC;
+var infura_key = process.env.INFURA_API_KEY;
+
 module.exports = {
-  // Uncommenting the defaults below 
-  // provides for an easier quick-start with Ganache.
-  // You can also follow this format for other networks;
-  // see <http://truffleframework.com/docs/advanced/configuration>
-  // for more details on how to specify configuration options!
-  //
-  //networks: {
-  //  development: {
-  //    host: "127.0.0.1",
-  //    port: 7545,
-  //    network_id: "*"
-  //  },
-  //  test: {
-  //    host: "127.0.0.1",
-  //    port: 7545,
-  //    network_id: "*"
-  //  }
-  //}
-  //
+  networks: {
+    development: {
+      protocol: 'http',
+      host: 'localhost',
+      port: 8545,
+      network_id: '*' 
+    },
+    ropsten: {
+       provider: new HDWalletProvider(mnemonic, infura_key, 1),
+      network_id: 3,
+      gas: 4000000,
+     }
+    }
 };
+  */
+
